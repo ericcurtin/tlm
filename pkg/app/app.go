@@ -9,6 +9,7 @@ import (
 	"github.com/yusufcanb/tlm/pkg/ask"
 	"github.com/yusufcanb/tlm/pkg/config"
 	"github.com/yusufcanb/tlm/pkg/explain"
+	"github.com/yusufcanb/tlm/pkg/shell"
 	"github.com/yusufcanb/tlm/pkg/suggest"
 
 	"github.com/urfave/cli/v2"
@@ -28,6 +29,7 @@ type TlmApp struct {
 }
 
 func New(version, buildSha string) *TlmApp {
+	shell.ApplyLlmmanHost()
 	o, _ := ollama.ClientFromEnvironment()
 
 	con := config.New(o)

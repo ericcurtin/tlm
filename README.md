@@ -72,6 +72,19 @@ You're ready! Check installation by using the following command;
 tlm
 ```
 
+### Using with llmman
+
+[llmman](https://github.com/llmmanorg/llmman) is a local model runner that serves the Ollama API on port 17434. Point tlm at it with `OLLAMA_HOST`, or set `LLMMAN_HOST` (`[host][:port]`), which tlm honours when `OLLAMA_HOST` is unset;
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/llmmanorg/llmman/main/install.sh | sh
+llmman serve
+llmman pull qwen3.8
+
+export OLLAMA_HOST=http://localhost:17434   # or: export LLMMAN_HOST=localhost:17434
+tlm config
+```
+
 ## Usage
 
 ```

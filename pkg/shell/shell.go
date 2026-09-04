@@ -5,6 +5,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"net"
 	"net/url"
 	"os"
 	"os/exec"
@@ -76,6 +77,23 @@ func CheckOllamaIsUp(api *ollama.Client) error {
 		return fmt.Errorf(" Ollama connection failed. Please check your Ollama if it's running or configured correctly. \n%s", err.Error())
 	}
 	return nil
+}
+
+// ApplyLlmmanHost mirrors LLMMAN_HOST ([host][:port]) into OLLAMA_HOST when the
+// latter is unset, so tlm works against llmman (https://github.com/llmmanorg/llmman).
+func ApplyLlmmanHost() {
+	hostport := os.Getenv("LLMMAN_HOST")
+	if os.Getenv("OLLAMA_HOST") != "" || hostport == "" {
+		return
+	}
+	host, port, err := net.SplitHostPort(hostport)
+	if err != nil {
+		host, port = hostport, "17434"
+	}
+	if host == "" {
+		host = "127.0.0.1"
+	}
+	os.Setenv("OLLAMA_HOST", "http://"+net.JoinHostPort(host, port))
 }
 
 func CheckOllamaIsSet() error {
