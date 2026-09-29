@@ -93,7 +93,8 @@ func ApplyLlmmanHost() {
 	if host == "" {
 		host = "127.0.0.1"
 	}
-	os.Setenv("OLLAMA_HOST", "http://"+net.JoinHostPort(host, port))
+	u := url.URL{Scheme: "http", Host: net.JoinHostPort(host, port)}
+	os.Setenv("OLLAMA_HOST", u.String())
 }
 
 func CheckOllamaIsSet() error {
