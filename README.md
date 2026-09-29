@@ -77,7 +77,7 @@ tlm
 [llmman](https://github.com/llmmanorg/llmman) is a local model runner that serves the Ollama API on port 17434. Point tlm at it with `OLLAMA_HOST`, or set `LLMMAN_HOST` (`[host][:port]`), which tlm honours when `OLLAMA_HOST` is unset;
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/llmmanorg/llmman/main/install.sh | sh
+curl -fsSL https://llmmanorg.github.io/install.sh | sh
 llmman serve
 llmman pull qwen3.8
 
